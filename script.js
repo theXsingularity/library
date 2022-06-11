@@ -1,120 +1,79 @@
+//array which holds object books
 let myLibrary = [];
 
-function Book(title, author, pages, status) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.status = status
-    this.info = function() {
-      return `${title} by ${author}, ${pages}, ${status}`;
-    }
-}
-
-function addBookToLibrary() {
-
-  //from form
-  let ti = document.querySelector('#book')
-  let au = document.querySelector('#author')
-  let pa = document.querySelector('#pages')
-
-  //boox div container and contents
-  let bookContainer = document.createElement('div');
-  let titleOutput = document.createElement('div');
-  let authorOutput = document.createElement('div');
-  let pagesOutput = document.createElement('div')
-  bookList.appendChild(bookContainer);
-  book.appendChild(titleOutput)
-  book.appendChild(authorOutput)
-  book.appendChild(pagesOutput)
-
-
-  titleOutput.textContent = ti;
-  authorOutput.textContent = au;
-  pagesOutput.textContent = pa;
-}
-
-const addBook = document.getElementById("addBook");
-
-addBook.addEventListener('click', function() {
-  addBookToLibrary();
-  
-})
-
-
-
-
-
-
-
-const name = document.querySelector("#username")
-const greetMeButton = document.querySelector(".greet-btn")
-const greetingOutput = document.querySelector(".greeting")
-
-greetMeButton.addEventListener('click', (event) => {
-  greetingOutput.innerText = `Hello ${name.value}`;
-   name.value=''
-})
-
+//example books
 const theHobbit = new Book("The Hobbit", "J.R.R Tolkin", 295, "Read");
 const dune = new Book("Dune", "Frank Herbert", 304, "Read");
 const leftHand = new Book("The Left Hand of Darkness", "Urusula K. Leguin", 289, "To-Read");
 
-
-
-
-
-
+//adding books to array
 myLibrary.push(theHobbit)
 myLibrary.push(dune)
 myLibrary.push(leftHand)
 
 
+//the constructor for creating "books"
+function Book(title, author, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    this.info = function() {
+      return `${title} by ${author}, ${pages}, ${read}`;
+    }
+}
 
+let bookContainer = document.getElementById('bookList');
+bookContainer.classList.add('container')
 
+//bookContainer.style.background = 'green'; ... same as css bookList (...obviously)
 
-const book = document.createElement('div');
-const title = document.createElement('div');
-const author = document.createElement('div');
-const pages = document.createElement('div')
-title.textContent = theHobbit.title;
-author.textContent = theHobbit.author;
-pages.textContent = theHobbit.pages;
-bookList.appendChild(book);
-book.appendChild(title)
-book.appendChild(author)
-book.appendChild(pages)
+function addBookToLibrary() {
+  //create a new variable and 
+  //run constructor function w/ arguments from form inputs
+  let newBook = new Book(book.value, author.value, pages.value, read.checked)
+  
+  //add the new book to myLibrary
+  myLibrary.push(newBook)
+ 
+  //create new DOM elements
+  let bookDiv = document.createElement('div');
+  let titleOutput = document.createElement('div');
+  let authorOutput = document.createElement('div');
+  let pagesOutput = document.createElement('div')
+  let readOutput = document.createElement('div')
 
+  //change DOM elements innerText to corresponding
+  titleOutput.innerText = newBook.title;
+  authorOutput.innerText = newBook.author;
+  pagesOutput.innerText = newBook.pages;
+  if(read.checked != true) readOutput.innerText = ('Status: to Read')
+  if(read.checked == true) readOutput.innerText = ('Status: Read')
+  
+  //append DOM elements
+  bookContainer.appendChild(bookDiv)
+  bookDiv.appendChild(titleOutput);
+  bookDiv.appendChild(authorOutput);
+  bookDiv.appendChild(pagesOutput);
+  bookDiv.appendChild(readOutput);
+  
+  //style DOM elements
+  bookDiv.style.border = '10px solid black'
+  bookDiv.style.height = '100px'
+  bookDiv.style.margin = '15px'
 
-/*
-const book2 = document.createElement('div');
-book2.textContent = "THIS is also a book";
-book2.style.border = "25px solid gray";
-bookList.appendChild(book2); 
+  //clear inputs
+  author.value= ''
+  pages.value = ''
+  book.value = ''
+  read.checked = false
 
-const book3 = document.createElement('div');
-book3.textContent = "THIS is also a book";
-book3.style.border = "25px solid orange";
-bookList.appendChild(book3);
+};
 
-const book4 = document.createElement('div');
-book4.textContent = "THIS is also a book";
-book4.style.border = "25px solid blue";
-bookList.appendChild(book4); 
+//button DOM element
+const addBook = document.getElementById("addBook");
 
-const book5 = document.createElement('div');
-book5.textContent = "THIS is also a book";
-book5.style.border = "25px solid red";
-bookList.appendChild(book5);
-
-
-const name = document.querySelector("#username")
-const greetMeButton = document.querySelector(".greet-btn")
-const greetingOutput = document.querySelector(".greeting")
-
-greetMeButton.addEventListener('click', (event) => {
-  Book(title.innerText, author.innerText, pages.innerText); 
-  greetingOutput.innerText = `Hello ${name.value}`;
-   name.value=''
-})
-
-*/
+//event add book to library
+addBook.addEventListener('click', function() {
+  addBookToLibrary();
+});

@@ -8,7 +8,8 @@
     </head>
 
     <body>
-      <div>
+      <div ID="container">
+        <div id="bookForm">
           <div>
             <label for="book">Book</label>
             <input type="text" id="book">
@@ -23,22 +24,17 @@
             <label for="page">Pages:</label>
             <input type="number"  id="pages">
           </div>
-        
+        <div>
+          <label for="status">Read? (check for yes):</label>
+          <input type="checkbox" id="read">
+        </div>
+
           <button id ="addBook">Submit</button>
-        
+        </div>
 
-
-      <div>
-          <label for="b">What's your name?</label>
-          <input type="text"id="username">
-          <button class="greet-btn">Greet Me</button>
-      </div>
-        
-      <h1 class="greeting"></h1>
-      </div>
-        
+  
         <div id = "bookList"></div>
-        
+      </div> 
 
 
     </body>

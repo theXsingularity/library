@@ -1,7 +1,29 @@
+#container {
+  display: inline-flex;
+
+}
+
+
+
+#bookForm{
+  width: 150px;
+  height: 750px;
+  border: 10px solid black;
+
+  background-color: coral;
+
+}
 #bookList {
-    margin: auto;
-    border: 10px solid black;
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+  margin: auto;
+  border: 10px solid black;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  height: 750px;
+  width: 800px;
+  background: grey;
   }
-  
+
+
+
+
