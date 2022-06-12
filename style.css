@@ -3,7 +3,6 @@
 
 }
 
-
 #formHeader{
   margin-top: 50px;
   text-align: center;
@@ -21,12 +20,10 @@
 
 }
 #bookList {
-  margin: auto;
-  border: 10px solid black;
   display: flex;
+  align-content: flex-start;
   flex-wrap: wrap;
-  
-  
+  border: 10px solid black;
   height: 750px;
   width: 900px;
   background: grey;

@@ -38,14 +38,15 @@ function addBookToLibrary() {
   pages.value = ''
   book.value = ''
   read.checked = false
+  outputToLibrary()
 };
 //on click... add to library and update array
 addBook.addEventListener('click', function() {
   addBookToLibrary();
-  outputLibrary()
+  
 });
 
-function outputLibrary() {
+function outputToLibrary() {
   for (i=0; i<myLibrary.length; i++) {
     if(myLibrary[i].displayed === false) {
     //create new DOM elements
@@ -55,6 +56,11 @@ function outputLibrary() {
     let authorOutput = document.createElement('div');
     let pagesOutput = document.createElement('div')
     let readOutput = document.createElement('div')
+    let rmvBtn = document.createElement('button');
+    rmvBtn.innerText = "remove book";
+    rmvBtn.classList.add('removeButton')
+
+    
     //change DOM elements innerText to corresponding
     titleOutput.innerText = myLibrary[i].title
     authorOutput.innerText = myLibrary[i].author;
@@ -67,6 +73,7 @@ function outputLibrary() {
     bookDiv.appendChild(authorOutput);
     bookDiv.appendChild(pagesOutput);
     bookDiv.appendChild(readOutput);
+    bookDiv.appendChild(rmvBtn);
       //style DOM elements
     bookDiv.style.border = '10px solid black'
     bookDiv.style.height = '100px'
@@ -79,6 +86,4 @@ function outputLibrary() {
   }
 }
 
-
-
-outputLibrary()
+outputToLibrary()
