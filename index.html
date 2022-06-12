@@ -8,8 +8,26 @@
     </head>
 
     <body>
-      <div id="container">
+    
+        <div id="header">
+          <h1>Reading List</h1>
+          <div id="testText">
+            <h5>Click below to add a book to your list</h5>
+            <button onclick="on()" id="newBookButton">Click to Add Book</button>
+          </div>
+        </div>
+        
+        <div id="bottomHalf">
+          <div id="bookDisplay">
+                      <!-- empty -->
+          </div>
+        </div>
+
+        
+<!-- OVER LAY FORM FOR WHEN PUSH BUTTON  -->
+      <div id="overlay">
         <div id="bookForm">
+          <div id="exitButton" onclick="off()">X</div>
           <div id="formHeader"> INPUT BOOK BELOW</div>
           <div id="bookInput">
             <label for="book">Book</label>
@@ -34,11 +52,7 @@
           <br>
           <button id ="addBook">Submit</button>
         </div>
-
-  
-        <div id = "bookList"></div>
-      </div> 
-
+      </div>
 
     </body>
 </html>
