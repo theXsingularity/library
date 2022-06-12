@@ -10,21 +10,33 @@
 
 #bookForm{
   width: 175px;
-  height: 750px;
-  border: 10px solid black;
+  height: 600px;
+  border-top: 10px solid black;
+  border-left: 10px solid black;
+  border-bottom: 10px solid black;
   background-color: coral;
 }
 
 #bookInput{
   margin-top: 75px;
-
 }
+
+
+input {
+  margin: 10px;
+}
+
+#readTest {
+  margin-top: 100px;
+  background-color: purple;
+}
+
 #bookList {
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
   border: 10px solid black;
-  height: 750px;
+  height: auto;
   width: 900px;
   background: grey;
   }
