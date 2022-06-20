@@ -10,6 +10,11 @@ function Book(title, author, pages, read) {
   this.info = function() {
     return `${title} by ${author}, ${pages}, ${read}`;
   }
+  this.changeStatus = function() {
+      console.log(this.read);
+      this.read = false;
+      console.log(this.read);
+    }
   this.displayed = false
 }
 
@@ -65,18 +70,15 @@ function outputToLibrary() {
     let bookDiv = document.createElement('div');
       bookDiv.classList.add('bookDOM');
       bookDiv.setAttribute('data-attribute', `${i}`);
+    
       //book info DOM elements
     let titleOutput = document.createElement('div');
     let authorOutput = document.createElement('div');
     let pagesOutput = document.createElement('div');
     let readOutput = document.createElement('div');
-    let togLabel = document.createElement('label')
-    togLabel.classList.add('switch');
-    let tog = document.createElement('input');
-    tog.setAttribute('type', 'checkbox');
-    let togBut = document.createElement('span');
-    togBut.classList.add('slider');
-    console.log(myLibrary[i].read);
+    readOutput.setAttribute('data-attribute', `${i}`);
+    
+  readOutput.addEventListener('click', changeBookStatus )
     
     /* style DOM elements */
     bookDiv.style.border = '10px solid black'
@@ -87,28 +89,17 @@ function outputToLibrary() {
     bookDiv.style.padding = "15px";
     myLibrary[i].displayed = true;
 
-    togLabel.style.position = "relative";
-    togLabel.style.display = 'block';
-    togLabel.style.width = '60px';
-    togLabel.style.height = '15px';
-    togLabel.style.background = 'red'
-    tog.style.opacity = '0';
-    tog.style.width= '0';
-    tog.style.height = '0';
-    togBut.style.position = 'absolute';
-    togBut.style.width = '10px';
-    togBut.style.cursor = 'pointer';
-    togBut.style.top = '0';
-    togBut.style.left = '0';
-    togBut.style.right = '0';
-    togBut.style.bottom = '0';
-    togBut.style.background = 'pink';
+
+
+
+
+    
+
     //togBut.style.webkit-TransitionEvent'.4s';
     //togBut.style.transition = '.4s';
 
+    /* change DOM elements innerText to corresponding  */
     
-    
-    //change DOM elements innerText to corresponding
     titleOutput.innerText = `Title: ${myLibrary[i].title}`
     authorOutput.innerText = `Author: ${myLibrary[i].author}`;
     pagesOutput.innerText = `Length: ${myLibrary[i].pages} pages`;
@@ -116,22 +107,18 @@ function outputToLibrary() {
 
     if(read.checked != true) {
       readOutput.innerText = ('Statu: to Read')
-      tog.checked = false;
-      console.log(tog.checked);
     }  else {
       readOutput.innerText = ('Status: Read')
-      tog.checked = true;
-      console.log(tog.checked);
+   
     }
 /* need for manually entered objects */
     if (myLibrary[i].read === "To-Read") {
       readOutput.innerText = ('Status: to Read')
-      tog.checked = false;
-      console.log(tog.checked);
+  
     } else if (myLibrary[i].read === "Read") {
        readOutput.innerText = ('Status: Read')
-       tog.checked = true;
-      console.log(tog.checked);
+    
+   
     }
 
     //append DOM elements
@@ -140,9 +127,8 @@ function outputToLibrary() {
     bookDiv.appendChild(authorOutput);
     bookDiv.appendChild(pagesOutput);
     bookDiv.appendChild(readOutput);
-    bookDiv.appendChild(togLabel);
-    togLabel.appendChild(tog);
-    togLabel.appendChild(togBut);
+    
+  
 
   /* THE REMOVE BUTTON! */
     let rmvBtn = document.createElement('button');
@@ -153,7 +139,6 @@ function outputToLibrary() {
     //add eventlistener
     rmvBtn.addEventListener('click', function(e) {    
       myLibrary.pop(i)  //removes object from the array
-      
       this.parentNode.remove()
     })
     bookDiv.appendChild(rmvBtn)
@@ -169,6 +154,19 @@ function purp(event) {
   event.target.style.background = 'purple';
 }
 
+
+
+function changeBookStatus(event) {
+if(this.innerText === 'Status: Read') {
+  this.innerText = 'Status: To-Read'
+  myLibrary[this.getAttribute('data-attribute')].read = false
+
+
+} else {
+  this.innerText = 'Status: Read'
+  myLibrary[this.getAttribute('data-attribute')].read = true
+}
+}
 
 let allbuttons = document.querySelectorAll('[class^="removeBook"],[class*="removeBookß"]');
 let allbook = document.getElementsByClassName('bookDOM');
