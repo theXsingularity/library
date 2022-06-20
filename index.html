@@ -26,31 +26,36 @@
         
 <!-- OVER LAY FORM FOR WHEN PUSH BUTTON  -->
       <div id="overlay">
-        <div id="bookForm">
-          <div id="exitButton" onclick="off()">X</div>
-          <div id="formHeader"> INPUT BOOK BELOW</div>
-          <div id="bookInput">
-            <label for="book">Book</label>
-            <input type="text" id="book">
+        <div id="displayContainer">
+          <div id="bookForm">
+            <div id=formHeader>
+              <div id="exitButton" onclick="off()">X</div>
+              <p id="formTitle"> INPUT BOOK BELOW</p>
+            </div>
+
+            <div id="bookInput">
+              <label for="book">Book</label>
+              <input type="text" id="book">
+            </div>
+          
+            <div>
+              <label for="author">Author</label>
+              <input type="text" id="author">
+            </div>
+          
+            <div>
+              <label for="page">Pages:</label>
+              <input type="number"  id="pages">
+            </div>
+            <br>
+            <div id="readTest">
+              <label for="status">Read? <br>Check for yes:</label>
+              <input type="checkbox" id="read">
+            </div>
+            <br>
+            <br>
+            <button id ="addBook">Submit</button>
           </div>
-        
-          <div>
-            <label for="author">Author</label>
-            <input type="text" id="author">
-          </div>
-        
-          <div>
-            <label for="page">Pages:</label>
-            <input type="number"  id="pages">
-          </div>
-          <br>
-          <div id="readTest">
-            <label for="status">Read? <br> Check for yes:</label>
-            <input type="checkbox" id="read">
-          </div>
-          <br>
-          <br>
-          <button id ="addBook">Submit</button>
         </div>
       </div>
 
