@@ -137,10 +137,10 @@ function outputToLibrary() {
     rmvBtn.style.marginTop = "10px"
     rmvBtn.innerText = "remove book";
     //add eventlistener
-    rmvBtn.addEventListener('click', function(e) {    
-      myLibrary.pop(i)  //removes object from the array
-      this.parentNode.remove()
-    })
+    rmvBtn.addEventListener('click', removeBookFromArray)    
+       //removes object from the array
+      
+    
     bookDiv.appendChild(rmvBtn)
     let allbuttons = document.querySelectorAll('[class^="removeBook"],[class*="removeBookß"]');
 
@@ -154,7 +154,14 @@ function purp(event) {
   event.target.style.background = 'purple';
 }
 
-
+function removeBookFromArray(event) {
+  let x = this.getAttribute('data-attribute')
+  console.log(x)
+  console.log(myLibrary[this.getAttribute('data-attribute')])
+  myLibrary.splice(this.getAttribute('data-attribute'), 1)
+  this.parentNode.remove()
+  
+}
 
 function changeBookStatus(event) {
 if(this.innerText === 'Status: Read') {
