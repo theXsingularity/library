@@ -1,6 +1,8 @@
 //array which holds object books
 let myLibrary = [];
 
+
+let rmvBtns = document.getElementsByClassName('removeBook');
 //the constructor for creating 
 function Book(title, author, pages, read) {
   this.title = title
@@ -82,7 +84,11 @@ function addBookToLibrary() {
 //adds previous function to the button addBook button on form
 addBook.addEventListener('click', function() {
   addBookToLibrary();
+  addatt()
 });
+
+
+
 
 // displays array object by creating new DOM elements
 function displayBooks() {
@@ -113,22 +119,40 @@ function displayBooks() {
     bookDiv.appendChild(rmvBtn);
     //now that it has been displayed - change displayed to true
     myLibrary[i].displayed = true;
+   
   }
   }
-  let allbuttons = document.getElementsByClassName('removeBook')
-  for (let i = 0; i <allbuttons.length; i++) {  //loops through node-list
-    allbuttons[i].addEventListener('click', purp); //adds turnRed function (see below)
+ 
+  //loops through remove buttons array and adds event listener and attribute
+  for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
+    rmvBtns[i].addEventListener('click', purp);
+    rmvBtns[i].setAttribute('data-attribute', `${i}`);
     };
+    
 }
-
+function addatt() {
+  let x = 0
+  myLibrary.forEach(function(itm){
+    itm.data = x
+    x+=1
+  }) 
+}
 displayBooks()
+addatt()
 
 
 
 let allbook = document.getElementsByClassName('bookDOM');
 
+
 function purp(event) {
   event.target.style.background = 'purple';
+  console.log(Element.this.getAttribute(data-attribute))
+  this.parentNode.remove()
+
+  // FIND A WAY TO ISOLATE THE DATA-ATTRIBUTE 
+  //THEN POP OUT THE CORRESPONDING OBJECT FROM THE ARRAY!!!!!
+
 }
 
 function changeBookStatus(event) {
