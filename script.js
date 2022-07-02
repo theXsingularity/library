@@ -30,153 +30,120 @@ myLibrary.push(dune)
 myLibrary.push(leftHand)
 myLibrary.push(testBook)
 
-/* creating values for the HTML elements */
-let bookContainer = document.getElementById('bookList'); /* book container HTML element */
+/* creating DOM values for the HTML elements */
 const addBook = document.getElementById("addBook"); /* addBook button HTML element */
 
-//function adding book from form to arrary
+/* creating new DOM elements for displaying "books" */
+let bookDiv = document.createElement('div');
+let titleOutput = document.createElement('div');
+let authorOutput = document.createElement('div');
+let pagesOutput = document.createElement('div');
+let readOutput = document.createElement('div');
+let rmvBtn = document.createElement('button');
+
+/* style DOM elements */
+bookDiv.style.border = '10px solid black'
+bookDiv.style.width = '200px'
+bookDiv.style.margin = '20px'
+bookDiv.style.background = 'dimgray';
+bookDiv.style.boxShadow =  '10px 10px #888888';
+bookDiv.style.padding = "15px";
+rmvBtn.style.marginTop = "10px"
+rmvBtn.innerText = "remove book";
+rmvBtn.classList.add(`removeBook`);
+
+/* appending elements to book display DOM element */
+bookDiv.appendChild(titleOutput);
+bookDiv.appendChild(authorOutput);
+bookDiv.appendChild(pagesOutput);
+bookDiv.appendChild(readOutput);
+bookDiv.appendChild(rmvBtn);
+//bookDiv.setAttribute('data-attribute', `${i}`);
+
+
+/* function adding book from form to arrary
+  - create a new variable 
+  - run constructor function w/ arguments from form inputs
+  - add the new book to myLibrary
+  - clear inputs 
+  - display book   */
 function addBookToLibrary() {
- /*create a new variable and 
-   run constructor function w/ arguments from form inputs */
   let newBook = new Book(book.value, author.value, pages.value, read.checked)
-  //add the new book to myLibrary
   console.log(read.checked)
   myLibrary.push(newBook)
-  outputToLibrary()
-  //clear inputs
   author.value= ''
   pages.value = ''
   book.value = ''
   read.checked = false
-  /* runs function below
-  checks to see if all objectes have been displayed
-  then adds the new object */
-
+  displayBooks()
   off()
 };
 
-//adds ^^ that function to the button addBook
+//adds previous function to the button addBook button on form
 addBook.addEventListener('click', function() {
   addBookToLibrary();
 });
 
 // displays array object by creating new DOM elements
-function outputToLibrary() {
+function displayBooks() {
   for (i=0; i<myLibrary.length; i++) {
+    //if not displayed ... display 
     if(myLibrary[i].displayed === false) {
-    
-      /* create new DOM elements */
-      //book output container
-    let bookDiv = document.createElement('div');
-      bookDiv.classList.add('bookDOM');
-      bookDiv.setAttribute('data-attribute', `${i}`);
-    
-      //book info DOM elements
-    let titleOutput = document.createElement('div');
-    let authorOutput = document.createElement('div');
-    let pagesOutput = document.createElement('div');
-    let readOutput = document.createElement('div');
     readOutput.setAttribute('data-attribute', `${i}`);
-    
-  readOutput.addEventListener('click', changeBookStatus )
-    
-    /* style DOM elements */
-    bookDiv.style.border = '10px solid black'
-    bookDiv.style.width = '200px'
-    bookDiv.style.margin = '20px'
-    bookDiv.style.background = 'dimgray';
-    bookDiv.style.boxShadow =  '10px 10px #888888';
-    bookDiv.style.padding = "15px";
-    myLibrary[i].displayed = true;
-
-
-
-
-
-    
-
-    //togBut.style.webkit-TransitionEvent'.4s';
-    //togBut.style.transition = '.4s';
-
-    /* change DOM elements innerText to corresponding  */
-    
     titleOutput.innerText = `Title: ${myLibrary[i].title}`
     authorOutput.innerText = `Author: ${myLibrary[i].author}`;
     pagesOutput.innerText = `Length: ${myLibrary[i].pages} pages`;
-    
-
     if(read.checked != true) {
       readOutput.innerText = ('Statu: to Read')
     }  else {
       readOutput.innerText = ('Status: Read')
-   
     }
-/* need for manually entered objects */
+    /* need for manually entered objects */
     if (myLibrary[i].read === "To-Read") {
       readOutput.innerText = ('Status: to Read')
-  
     } else if (myLibrary[i].read === "Read") {
        readOutput.innerText = ('Status: Read')
-    
-   
     }
-
     //append DOM elements
-    bookDisplay.appendChild(bookDiv);
+    bookDisplay.appendChild(bookDiv.cloneNode(true));
     bookDiv.appendChild(titleOutput);
     bookDiv.appendChild(authorOutput);
     bookDiv.appendChild(pagesOutput);
     bookDiv.appendChild(readOutput);
-    
-  
-
-  /* THE REMOVE BUTTON! */
-    let rmvBtn = document.createElement('button');
-    rmvBtn.classList.add(`removeBook-${i}`);
-    //style btn 
-    rmvBtn.style.marginTop = "10px"
-    rmvBtn.innerText = "remove book";
-    //add eventlistener
-    rmvBtn.addEventListener('click', removeBookFromArray)    
-       //removes object from the array
-      
-    
-    bookDiv.appendChild(rmvBtn)
-    let allbuttons = document.querySelectorAll('[class^="removeBook"],[class*="removeBookß"]');
-
+    bookDiv.appendChild(rmvBtn);
+    //now that it has been displayed - change displayed to true
+    myLibrary[i].displayed = true;
   }
   }
+  let allbuttons = document.getElementsByClassName('removeBook')
+  for (let i = 0; i <allbuttons.length; i++) {  //loops through node-list
+    allbuttons[i].addEventListener('click', purp); //adds turnRed function (see below)
+    };
 }
 
-outputToLibrary()
+displayBooks()
+
+
+
+let allbook = document.getElementsByClassName('bookDOM');
 
 function purp(event) {
   event.target.style.background = 'purple';
-}
-
-function removeBookFromArray(event) {
-  let x = this.getAttribute('data-attribute')
-  console.log(x)
-  console.log(myLibrary[this.getAttribute('data-attribute')])
-  myLibrary.splice(this.getAttribute('data-attribute'), 1)
-  this.parentNode.remove()
-  
 }
 
 function changeBookStatus(event) {
 if(this.innerText === 'Status: Read') {
   this.innerText = 'Status: To-Read'
   myLibrary[this.getAttribute('data-attribute')].read = false
-
-
 } else {
   this.innerText = 'Status: Read'
   myLibrary[this.getAttribute('data-attribute')].read = true
 }
 }
 
-let allbuttons = document.querySelectorAll('[class^="removeBook"],[class*="removeBookß"]');
-let allbook = document.getElementsByClassName('bookDOM');
+
+
+
 
 
 
