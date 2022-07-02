@@ -147,7 +147,7 @@ let allbook = document.getElementsByClassName('bookDOM');
 
 function purp(event) {
   event.target.style.background = 'purple';
-  console.log(Element.this.getAttribute(data-attribute))
+  //console.log(Element.this.getAttribute(data-attribute))
   this.parentNode.remove()
 
   // FIND A WAY TO ISOLATE THE DATA-ATTRIBUTE 
