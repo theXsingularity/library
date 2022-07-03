@@ -1,10 +1,7 @@
 //array which holds object books
 let myLibrary = [];
 
-
-let rmvBtns = document.getElementsByClassName('removeBook');
-let changeBtn = document.getElementsByClassName('changeStatus');
-//the constructor for creating 
+//the constructor for creating "books"
 function Book(title, author, pages, read) {
   this.title = title
   this.author = author
@@ -33,7 +30,7 @@ myLibrary.push(dune)
 myLibrary.push(leftHand)
 myLibrary.push(testBook)
 
-/* creating DOM values for the HTML elements */
+/* creating DOM values for HTML elements */
 const addBook = document.getElementById("addBook"); /* addBook button HTML element */
 
 /* creating new DOM elements for displaying "books" */
@@ -44,7 +41,6 @@ let pagesOutput = document.createElement('div');
 let readOutput = document.createElement('div');
 let rmvBtn = document.createElement('button');
 let changeStatus = document.createElement('button')
-
 
 /* style DOM elements */
 bookDiv.style.border = '10px solid black'
@@ -59,7 +55,6 @@ rmvBtn.classList.add(`removeBook`);
 changeStatus.classList.add('changeStatus')
 changeStatus.innerText = "changeStatus"
 
-
 /* appending elements to book display DOM element */
 bookDiv.appendChild(titleOutput);
 bookDiv.appendChild(authorOutput);
@@ -70,6 +65,8 @@ bookDiv.appendChild(rmvBtn);
 
 //bookDiv.setAttribute('data-attribute', `${i}`);
 
+let rmvBtns = document.getElementsByClassName('removeBook');
+let changeBtn = document.getElementsByClassName('changeStatus');
 
 /* function adding book from form to arrary
   - create a new variable 
@@ -94,9 +91,6 @@ addBook.addEventListener('click', function() {
   addBookToLibrary();
   addatt()
 });
-
-
-
 
 // displays array object by creating new DOM elements
 function displayBooks() {
@@ -136,6 +130,7 @@ function displayBooks() {
     };
     
 }
+
 function addatt() {
   let x = 0
   myLibrary.forEach(function(itm){
@@ -143,13 +138,6 @@ function addatt() {
     x+=1
   }) 
 }
-displayBooks()
-addatt()
-
-
-
-let allbook = document.getElementsByClassName('bookDOM');
-
 
 function purp(event) {
   event.target.style.background = 'purple';
@@ -158,10 +146,6 @@ function purp(event) {
   myLibrary.splice(this.getAttribute('data-attribute'), 1)
   this.parentNode.remove()
   console.log(myLibrary)
-  
-
-  // FIND A WAY TO ISOLATE THE DATA-ATTRIBUTE on 
-  //THEN POP OUT THE CORRESPONDING OBJECT FROM THE ARRAY!!!!!
 
   //must re-assign data attributes so corresponds to array value
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
@@ -175,20 +159,26 @@ function changeBook(event) {
   if(myLibrary[this.getAttribute('data-attribute')].read === true) {
     myLibrary[this.getAttribute('data-attribute')].read = false
     this.previousElementSibling.innerText = 'Status: to Read'
-    
   } else {
     myLibrary[this.getAttribute('data-attribute')].read = true
     this.previousElementSibling.innerText = 'Status: Read'
-    
   }
   for (let i = 0; i <changeBtn.length; i++) {  //loops through node-list
     changeBtn[i].addEventListener('click', changeBook);
     changeBtn[i].setAttribute('data-attribute', `${i}`);
-      };
-  console.log(myLibrary[this.getAttribute('data-attribute')].read)
+  };
+}
+  /* for overlay form*/
+function on() {
+  document.getElementById("overlay").style.display = "block";
 }
 
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
 
+displayBooks()
+addatt()
 
 
 /*  
@@ -202,17 +192,3 @@ if(this.innerText === 'Status: Read') {
 }
 }
 */
-
-
-
-
-
-
-  /* for overlay form*/
-  function on() {
-    document.getElementById("overlay").style.display = "block";
-  }
-  
-  function off() {
-    document.getElementById("overlay").style.display = "none";
-  }
