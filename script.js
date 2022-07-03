@@ -119,10 +119,8 @@ function displayBooks() {
     bookDiv.appendChild(rmvBtn);
     //now that it has been displayed - change displayed to true
     myLibrary[i].displayed = true;
-   
+  } 
   }
-  }
- 
   //loops through remove buttons array and adds event listener and attribute
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
     rmvBtns[i].addEventListener('click', purp);
@@ -147,12 +145,21 @@ let allbook = document.getElementsByClassName('bookDOM');
 
 function purp(event) {
   event.target.style.background = 'purple';
-  //console.log(Element.this.getAttribute(data-attribute))
+  console.log('test')
+  console.log(this.getAttribute('data-attribute'))
+  myLibrary.splice(this.getAttribute('data-attribute'), 1)
   this.parentNode.remove()
+  console.log(myLibrary)
+  
 
-  // FIND A WAY TO ISOLATE THE DATA-ATTRIBUTE 
+  // FIND A WAY TO ISOLATE THE DATA-ATTRIBUTE on 
   //THEN POP OUT THE CORRESPONDING OBJECT FROM THE ARRAY!!!!!
 
+  //must re-assign data attributes so corresponds to array value
+  for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
+    rmvBtns[i].addEventListener('click', purp);
+    rmvBtns[i].setAttribute('data-attribute', `${i}`);
+    };
 }
 
 function changeBookStatus(event) {
