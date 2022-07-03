@@ -3,6 +3,7 @@ let myLibrary = [];
 
 
 let rmvBtns = document.getElementsByClassName('removeBook');
+let changeBtn = document.getElementsByClassName('changeStatus');
 //the constructor for creating 
 function Book(title, author, pages, read) {
   this.title = title
@@ -21,10 +22,10 @@ function Book(title, author, pages, read) {
 }
 
 //example books
-const theHobbit = new Book("The Hobbit", "J.R.R Tolkin", 295, "Read");
-const dune = new Book("Dune", "Frank Herbert", 304, "Read");
-const leftHand = new Book("The Left Hand of Darkness", "Urusula K. Leguin", 289, "To-Read");
-const testBook = new Book("TEST BOOK", "TEST AUTHOR", 999, "To-Read");
+const theHobbit = new Book("The Hobbit", "J.R.R Tolkin", 295, false);
+const dune = new Book("Dune", "Frank Herbert", 304, true);
+const leftHand = new Book("The Left Hand of Darkness", "Urusula K. Leguin", 289, false);
+const testBook = new Book("TEST BOOK", "TEST AUTHOR", 999, true);
 
 //adding books to myLibrary
 myLibrary.push(theHobbit)
@@ -42,6 +43,8 @@ let authorOutput = document.createElement('div');
 let pagesOutput = document.createElement('div');
 let readOutput = document.createElement('div');
 let rmvBtn = document.createElement('button');
+let changeStatus = document.createElement('button')
+
 
 /* style DOM elements */
 bookDiv.style.border = '10px solid black'
@@ -53,13 +56,18 @@ bookDiv.style.padding = "15px";
 rmvBtn.style.marginTop = "10px"
 rmvBtn.innerText = "remove book";
 rmvBtn.classList.add(`removeBook`);
+changeStatus.classList.add('changeStatus')
+changeStatus.innerText = "changeStatus"
+
 
 /* appending elements to book display DOM element */
 bookDiv.appendChild(titleOutput);
 bookDiv.appendChild(authorOutput);
 bookDiv.appendChild(pagesOutput);
 bookDiv.appendChild(readOutput);
+bookDiv.appendChild(changeStatus)
 bookDiv.appendChild(rmvBtn);
+
 //bookDiv.setAttribute('data-attribute', `${i}`);
 
 
@@ -99,15 +107,9 @@ function displayBooks() {
     titleOutput.innerText = `Title: ${myLibrary[i].title}`
     authorOutput.innerText = `Author: ${myLibrary[i].author}`;
     pagesOutput.innerText = `Length: ${myLibrary[i].pages} pages`;
-    if(read.checked != true) {
-      readOutput.innerText = ('Statu: to Read')
-    }  else {
-      readOutput.innerText = ('Status: Read')
-    }
-    /* need for manually entered objects */
-    if (myLibrary[i].read === "To-Read") {
+    if (myLibrary[i].read === false) {
       readOutput.innerText = ('Status: to Read')
-    } else if (myLibrary[i].read === "Read") {
+    } else if (myLibrary[i].read === true) {
        readOutput.innerText = ('Status: Read')
     }
     //append DOM elements
@@ -116,6 +118,7 @@ function displayBooks() {
     bookDiv.appendChild(authorOutput);
     bookDiv.appendChild(pagesOutput);
     bookDiv.appendChild(readOutput);
+    bookDiv.appendChild(changeStatus);
     bookDiv.appendChild(rmvBtn);
     //now that it has been displayed - change displayed to true
     myLibrary[i].displayed = true;
@@ -125,6 +128,11 @@ function displayBooks() {
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
     rmvBtns[i].addEventListener('click', purp);
     rmvBtns[i].setAttribute('data-attribute', `${i}`);
+    };
+  
+  for (let i = 0; i <changeBtn.length; i++) {  //loops through node-list
+  changeBtn[i].addEventListener('click', changeBook);
+  changeBtn[i].setAttribute('data-attribute', `${i}`);
     };
     
 }
@@ -162,6 +170,28 @@ function purp(event) {
     };
 }
 
+function changeBook(event) {
+  console.log(this.getAttribute('data-attribute'))
+  if(myLibrary[this.getAttribute('data-attribute')].read === true) {
+    myLibrary[this.getAttribute('data-attribute')].read = false
+    this.previousElementSibling.innerText = 'Status: to Read'
+    
+  } else {
+    myLibrary[this.getAttribute('data-attribute')].read = true
+    this.previousElementSibling.innerText = 'Status: Read'
+    
+  }
+  for (let i = 0; i <changeBtn.length; i++) {  //loops through node-list
+    changeBtn[i].addEventListener('click', changeBook);
+    changeBtn[i].setAttribute('data-attribute', `${i}`);
+      };
+  console.log(myLibrary[this.getAttribute('data-attribute')].read)
+}
+
+
+
+
+/*  
 function changeBookStatus(event) {
 if(this.innerText === 'Status: Read') {
   this.innerText = 'Status: To-Read'
@@ -171,7 +201,7 @@ if(this.innerText === 'Status: Read') {
   myLibrary[this.getAttribute('data-attribute')].read = true
 }
 }
-
+*/
 
 
 
