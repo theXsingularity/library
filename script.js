@@ -18,13 +18,11 @@ function Book(title, author, pages, read) {
   this.displayed = false
 }
 
-//example books
+//example books and adding to myLibrary
 const theHobbit = new Book("The Hobbit", "J.R.R Tolkin", 295, false);
 const dune = new Book("Dune", "Frank Herbert", 304, true);
 const leftHand = new Book("The Left Hand of Darkness", "Urusula K. Leguin", 289, false);
 const testBook = new Book("TEST BOOK", "TEST AUTHOR", 999, true);
-
-//adding books to myLibrary
 myLibrary.push(theHobbit)
 myLibrary.push(dune)
 myLibrary.push(leftHand)
@@ -35,32 +33,27 @@ const addBook = document.getElementById("addBook"); /* addBook button HTML eleme
 
 /* creating new DOM elements for displaying "books" */
 let bookDiv = document.createElement('div');
+bookDiv.classList.add('bookDiv')
 let titleOutput = document.createElement('div');
 let authorOutput = document.createElement('div');
 let pagesOutput = document.createElement('div');
 let readOutput = document.createElement('div');
+readOutput.setAttribute('id', 'bstatus');
 let rmvBtn = document.createElement('button');
 let changeStatus = document.createElement('button')
 
 /* style DOM elements */
-bookDiv.style.border = '10px solid black'
-bookDiv.style.width = '200px'
-bookDiv.style.margin = '20px'
-bookDiv.style.background = 'dimgray';
-bookDiv.style.boxShadow =  '10px 10px #888888';
-bookDiv.style.padding = "15px";
 rmvBtn.style.marginTop = "10px"
 rmvBtn.innerText = "remove book";
 rmvBtn.classList.add(`removeBook`);
 changeStatus.classList.add('changeStatus')
 changeStatus.innerText = "changeStatus"
-
 /* appending elements to book display DOM element */
 bookDiv.appendChild(titleOutput);
 bookDiv.appendChild(authorOutput);
 bookDiv.appendChild(pagesOutput);
 bookDiv.appendChild(readOutput);
-bookDiv.appendChild(changeStatus)
+bookDiv.appendChild(changeStatus);
 bookDiv.appendChild(rmvBtn);
 
 //bookDiv.setAttribute('data-attribute', `${i}`);
@@ -120,7 +113,7 @@ function displayBooks() {
   }
   //loops through remove buttons array and adds event listener and attribute
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
-    rmvBtns[i].addEventListener('click', purp);
+    rmvBtns[i].addEventListener('click', rmv);
     rmvBtns[i].setAttribute('data-attribute', `${i}`);
     };
   
@@ -139,7 +132,7 @@ function addatt() {
   }) 
 }
 
-function purp(event) {
+function rmv(event) {
   event.target.style.background = 'purple';
   console.log('test')
   console.log(this.getAttribute('data-attribute'))
@@ -149,7 +142,7 @@ function purp(event) {
 
   //must re-assign data attributes so corresponds to array value
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
-    rmvBtns[i].addEventListener('click', purp);
+    rmvBtns[i].addEventListener('click', rmv);
     rmvBtns[i].setAttribute('data-attribute', `${i}`);
     };
 }
