@@ -2,21 +2,21 @@
 let myLibrary = [];
 
 //the constructor for creating "books"
-function Book(title, author, pages, read) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
-  this.info = function() {
-    return `${title} by ${author}, ${pages}, ${read}`;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    this.displayed = false
   }
-  this.changeStatus = function() {
-      console.log(this.read);
-      this.read = false;
-      console.log(this.read);
+  info() {
+    return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
     }
-  this.displayed = false
-}
+  changeStatus()  {
+      this.read = false;
+    }
+  }
 
 //example books and adding to myLibrary
 const theHobbit = new Book("The Hobbit", "J.R.R Tolkin", 295, false);
@@ -56,8 +56,6 @@ bookDiv.appendChild(readOutput);
 bookDiv.appendChild(changeStatus);
 bookDiv.appendChild(rmvBtn);
 
-//bookDiv.setAttribute('data-attribute', `${i}`);
-
 let rmvBtns = document.getElementsByClassName('removeBook');
 let changeBtn = document.getElementsByClassName('changeStatus');
 
@@ -69,7 +67,6 @@ let changeBtn = document.getElementsByClassName('changeStatus');
   - display book   */
 function addBookToLibrary() {
   let newBook = new Book(book.value, author.value, pages.value, read.checked)
-  console.log(read.checked)
   myLibrary.push(newBook)
   author.value= ''
   pages.value = ''
@@ -82,7 +79,7 @@ function addBookToLibrary() {
 //adds previous function to the button addBook button on form
 addBook.addEventListener('click', function() {
   addBookToLibrary();
-  addatt()
+  
 });
 
 // displays array object by creating new DOM elements
@@ -115,31 +112,18 @@ function displayBooks() {
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
     rmvBtns[i].addEventListener('click', rmv);
     rmvBtns[i].setAttribute('data-attribute', `${i}`);
-    };
-  
+  };
   for (let i = 0; i <changeBtn.length; i++) {  //loops through node-list
-  changeBtn[i].addEventListener('click', changeBook);
-  changeBtn[i].setAttribute('data-attribute', `${i}`);
-    };
-    
+    changeBtn[i].addEventListener('click', changeBook);
+    changeBtn[i].setAttribute('data-attribute', `${i}`);
+  };
 }
-
-function addatt() {
-  let x = 0
-  myLibrary.forEach(function(itm){
-    itm.data = x
-    x+=1
-  }) 
-}
+displayBooks()
 
 function rmv(event) {
   event.target.style.background = 'purple';
-  console.log('test')
-  console.log(this.getAttribute('data-attribute'))
   myLibrary.splice(this.getAttribute('data-attribute'), 1)
   this.parentNode.remove()
-  console.log(myLibrary)
-
   //must re-assign data attributes so corresponds to array value
   for (let i = 0; i <rmvBtns.length; i++) {  //loops through node-list
     rmvBtns[i].addEventListener('click', rmv);
@@ -148,7 +132,6 @@ function rmv(event) {
 }
 
 function changeBook(event) {
-  console.log(this.getAttribute('data-attribute'))
   if(myLibrary[this.getAttribute('data-attribute')].read === true) {
     myLibrary[this.getAttribute('data-attribute')].read = false
     this.previousElementSibling.innerText = 'Status: to Read'
@@ -165,23 +148,7 @@ function changeBook(event) {
 function on() {
   document.getElementById("overlay").style.display = "block";
 }
-
 function off() {
   document.getElementById("overlay").style.display = "none";
 }
 
-displayBooks()
-addatt()
-
-
-/*  
-function changeBookStatus(event) {
-if(this.innerText === 'Status: Read') {
-  this.innerText = 'Status: To-Read'
-  myLibrary[this.getAttribute('data-attribute')].read = false
-} else {
-  this.innerText = 'Status: Read'
-  myLibrary[this.getAttribute('data-attribute')].read = true
-}
-}
-*/
